@@ -1,5 +1,4 @@
 // consent
-
 const consent = document.querySelector('.consent');
 const consentCheckbox = document.querySelector('.consentCheckbox');
 const startButton = document.querySelector('.startButton');
@@ -79,11 +78,10 @@ consentCheckbox.onchange = () => {
     startButton.disabled = !consentCheckbox.checked;
 };
 
+// onboarding
 let isIntro
 const intro = introJs();
 
-
-// onboarding
 startButton.onclick = () => {
     consent.classList.add("hidden");
     experiment.classList.remove("hidden");
@@ -91,10 +89,7 @@ startButton.onclick = () => {
     isIntro = true;
 
     intro.setOptions({
-        exitOnEsc: false,
-        exitOnOverlayClick: false,
-        showBullets: false,
-        showProgress: true,
+        exitOnEsc: false, exitOnOverlayClick: false, showBullets: false, showProgress: true,
 
         steps: [{
             title: 'Welcome',
@@ -110,39 +105,38 @@ startButton.onclick = () => {
         }, {
             title: 'AI Assistant',
             intro: '<p>The AI will watch the animation with you</p>' + '<p>However, the AI is trained on static images rather than the animation you are watching now.</p>' + '<p>Therefore, the AI can advise you but it is not always right.</p>'
-        },
-            {
-                title: 'Your Initial Answer',
-                element: beforeForm,
-                intro: '<p>First, give your answer. Select the color with the most dots. </p>' + '<p>Then rate your confidence between 0 and 100, where 0 means purely guessing and 100 means totally certain</p>'
-            }, {
-                title: 'AI\'s Answer',
-                element: aiForm,
-                intro: '<p>Then the AI will give you its answer and confidence</p>' + '<p>It is usually helpful, but may not always get it right</p>',
-            }, {
-                title: 'Your Final Answer',
-                element: afterForm,
-                intro: '<p>After getting the AI\'s advice, answer the question again</p>'
-            }, {
-                title: 'Feedback',
-                element: correct,
-                intro: '<p>The results will be shown after your final answer.</p>' + '<p>Get it right, and your score will +1.</p>'
-            }, {
-                title: 'Feedback',
-                element: wrong,
-                intro: '<p>If you are wrong, the correct answer will be shown</p>' + '<p>Your score will not change.</p>'
-            }, {title: 'Next Trial', element: nextButton, intro: '<p>Click to begin the next trial.</p>'}, {
-                title: 'Trials',
-                element: trial,
-                intro: '<p>The progress will be shown on the top left. </p><p>There are ' + numTrial + ' trials in total</p>'
-            }, {
-                title: 'Score',
-                element: score,
-                intro: '<p>Your score will be shown on the top right</p>'
-            }, {
-                title: 'Reminder!',
-                intro: '<p>Remember the AI is sometimes right and sometimes wrong.</p>' + '<p>Your objective is to learn to use the AI to maximize your score</p>'
-            }, {title: 'Start Experiment', intro: 'Click done to start the experiment',}]
+        }, {
+            title: 'Your Initial Answer',
+            element: beforeForm,
+            intro: '<p>First, give your answer. Select the color with the most dots. </p>' + '<p>Then rate your confidence between 0 and 100, where 0 means purely guessing and 100 means totally certain</p>'
+        }, {
+            title: 'AI\'s Answer',
+            element: aiForm,
+            intro: '<p>Then the AI will give you its answer and confidence</p>' + '<p>It is usually helpful, but may not always get it right</p>',
+        }, {
+            title: 'Your Final Answer',
+            element: afterForm,
+            intro: '<p>After getting the AI\'s advice, answer the question again</p>'
+        }, {
+            title: 'Feedback',
+            element: correct,
+            intro: '<p>The results will be shown after your final answer.</p>' + '<p>Get it right, and your score will +1.</p>'
+        }, {
+            title: 'Feedback',
+            element: wrong,
+            intro: '<p>If you are wrong, the correct answer will be shown</p>' + '<p>Your score will not change.</p>'
+        }, {title: 'Next Trial', element: nextButton, intro: '<p>Click to begin the next trial.</p>'}, {
+            title: 'Trials',
+            element: trial,
+            intro: `<p>The progress will be shown on the top left. </p><p>It shows the current trial/total trials</p>`
+        }, {
+            title: 'Score',
+            element: score,
+            intro: '<p>Your score will be shown on the top right</p>' + '<p>It shows the number of questions you\'ve answered correctly/total number of questions</p>'
+        }, {
+            title: 'Reminder!',
+            intro: '<p>Remember the AI is sometimes right and sometimes wrong.</p>' + '<p>Your objective is to learn to use the AI to maximize your score</p>'
+        }, {title: 'Start Experiment', intro: 'Click done to start the experiment',}]
     })
 
     intro.onchange((ele) => {
@@ -185,7 +179,6 @@ startButton.onclick = () => {
     })
 
     intro.start();
-
 }
 
 
@@ -239,8 +232,8 @@ getData().then(() => setData())
 
 const allData = new Map();
 
-trial.textContent = `Trial: ${curTrial}/${numTrial}`;
-score.textContent = `Score: ${curScore}`;
+trial.textContent = `Trial: 1/${numTrial} (${Math.round(1 / numTrial * 100)}%)`;
+score.textContent = `Score: 0/0 (0%)`;
 
 canvas.onanimationend = () => {
     if (!isIntro) {
@@ -288,13 +281,13 @@ afterForm.onsubmit = async event => {
 
         if (afterColor.toLowerCase() === maxColor.toLowerCase()) {
             curScore++
-            score.textContent = `Score: ${curScore}`;
-
             correct.classList.remove("hidden");
         } else {
             answer.textContent = `${maxColor}`
             wrong.classList.remove("hidden");
         }
+
+        score.textContent = `Score: ${curScore}/${curTrial} (${Math.round(curScore / curTrial * 100)}%)`;
 
         resultDisplay.classList.remove("hidden");
         allData.set(curTrial, smpData)
@@ -327,7 +320,7 @@ const resetTrial = () => {
 
 nextButton.onclick = () => {
     curTrial++
-    trial.textContent = `Trial: ${curTrial}/${numTrial}`;
+    trial.textContent = `Trial: ${curTrial}/${numTrial} (${Math.round(curTrial / numTrial * 100)}%)`;
 
     if (curTrial <= numTrial) {
         resetTrial()
