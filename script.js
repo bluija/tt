@@ -35,13 +35,6 @@ const afterForm = document.querySelector('.afterForm');
 const afterField = document.querySelector('.afterField');
 const afterSubmit = document.querySelector('.afterSubmit');
 
-const resultDisplay = document.querySelector('.resultDisplay');
-const correct = document.querySelector('.correct');
-const wrong = document.querySelector('.wrong');
-const answer = document.querySelector('.answer');
-
-const nextButton = document.querySelector('.nextButton');
-
 // canvas
 const canvasDisplay = document.querySelector('.canvasDisplay');
 const canvas = document.getElementById("canvas");
@@ -119,14 +112,9 @@ startButton.onclick = () => {
             intro: '<p>After getting the AI\'s advice, answer the question again</p>'
         }, {
             title: 'Feedback',
-            element: correct,
-            intro: '<p>The results will be shown after your final answer.</p>' + '<p>Get it right, and your score will +1.</p>'
+            intro: '<p>Get the final question right, and your score will +1.</p>' + '<p>If you are wrong, the correct answer will be shown</p>'
         }, {
-            title: 'Feedback',
-            element: wrong,
-            intro: '<p>If you are wrong, the correct answer will be shown</p>' + '<p>Your score will not change.</p>'
-        }, {title: 'Next Trial', element: nextButton, intro: '<p>Click to begin the next trial.</p>'}, {
-            title: 'Trials',
+            title: 'Trial',
             element: trial,
             intro: `<p>The progress will be shown on the top left. </p><p>It shows the current trial/total trials</p>`
         }, {
@@ -136,7 +124,9 @@ startButton.onclick = () => {
         }, {
             title: 'Reminder!',
             intro: '<p>Remember the AI is sometimes right and sometimes wrong.</p>' + '<p>Your objective is to learn to use the AI to maximize your score</p>'
-        }, {title: 'Start Experiment', intro: 'Click done to start the experiment',}]
+        }, {
+            title: 'Start Experiment', intro: 'Let\'s start the experiment!',
+        }]
     })
 
     intro.onchange((ele) => {
@@ -158,24 +148,11 @@ startButton.onclick = () => {
         if (ele === afterForm) {
             afterForm.classList.remove("hidden");
         }
-
-        if (ele === correct) {
-            resultDisplay.classList.remove("hidden");
-            correct.classList.remove("hidden");
-        }
-
-        if (ele === wrong) {
-            answer.textContent = `${maxColor}`
-            wrong.classList.remove("hidden");
-            correct.classList.add("hidden");
-        }
-
     })
 
     intro.oncomplete(() => {
         isIntro = false;
         resetTrial();
-        setData()
     })
 
     intro.start();
@@ -279,18 +256,43 @@ afterForm.onsubmit = async event => {
 
         afterSubmit.classList.add("hidden");
 
+        let title
+        let descr
+
         if (afterColor.toLowerCase() === maxColor.toLowerCase()) {
             curScore++
-            correct.classList.remove("hidden");
+            title = "&#x2714; Correct!"
+            descr = "Your score increased by 1!"
         } else {
-            answer.textContent = `${maxColor}`
-            wrong.classList.remove("hidden");
+            title = "&#x2718; Wrong!"
+            descr = "The correct answer is " + maxColor
         }
 
         score.textContent = `Score: ${curScore}/${curTrial} (${Math.round(curScore / curTrial * 100)}%)`;
-
-        resultDisplay.classList.remove("hidden");
         allData.set(curTrial, smpData)
+
+        let results = introJs()
+
+        results.setOptions({
+            steps: [{
+                title: title, intro: descr
+            }]
+        })
+
+        results.oncomplete(() => {
+            curTrial++
+            trial.textContent = `Trial: ${curTrial}/${numTrial} (${Math.round(curTrial / numTrial * 100)}%)`;
+
+            if (curTrial <= numTrial) {
+                resetTrial()
+
+            } else {
+                experiment.classList.add("hidden");
+                complete.classList.remove("hidden");
+            }
+        })
+
+        results.start();
     }
 }
 
@@ -310,25 +312,10 @@ const resetTrial = () => {
     afterForm.classList.add("hidden");
     afterSubmit.classList.remove("hidden");
 
-    resultDisplay.classList.add("hidden");
-    correct.classList.add("hidden");
-    wrong.classList.add("hidden");
-
     canvasDisplay.classList.remove("hidden")
     questionDisplay.classList.add("hidden")
-}
 
-nextButton.onclick = () => {
-    curTrial++
-    trial.textContent = `Trial: ${curTrial}/${numTrial} (${Math.round(curTrial / numTrial * 100)}%)`;
-
-    if (curTrial <= numTrial) {
-        resetTrial()
-        setData()
-    } else {
-        experiment.classList.add("hidden");
-        complete.classList.remove("hidden");
-    }
+    setData()
 }
 
 
@@ -338,7 +325,7 @@ for (const [key, value] of params) {
 }
 
 
-redirectURL = "https://www.google.com"
+redirectURL = "https://www.example.com"
 
 commentSubmit.onclick = async () => {
     allData.set("comment", commentField.value);
