@@ -274,6 +274,7 @@ afterForm.onsubmit = async event => {
         let results = introJs()
 
         results.setOptions({
+            exitOnEsc: false, exitOnOverlayClick: false,
             steps: [{
                 title: title, intro: descr
             }]
