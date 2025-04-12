@@ -122,10 +122,10 @@ startButton.onclick = () => {
             element: score,
             intro: '<p>Your score will be shown on the top right</p>' + '<p>It shows the number of questions you\'ve answered correctly/total number of questions</p>'
         }, {
-            title: 'Reminder!',
-            intro: '<p>Remember the AI is sometimes right and sometimes wrong.</p>' + '<p>Your objective is to learn to use the AI to maximize your score</p>'
+            title: 'Reminder',
+            intro: '<p>The AI is sometimes right and sometimes wrong.</p>' + '<p>Your objective is to learn to use the AI to maximize your score</p>'
         }, {
-            title: 'Start Experiment', intro: 'Let\'s start the experiment!',
+            title: 'Start', intro: 'Let\'s begin the experiment!',
         }]
     })
 

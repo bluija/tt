@@ -49,6 +49,8 @@ input[type="radio"] {
 input[type="radio"] + label {
     color: black;
     display: inline-block;
+    cursor: pointer;
+    border-radius: 20%;
 }
 
 input[type="radio"]:hover:enabled + label, input[type="radio"]:checked + label {
