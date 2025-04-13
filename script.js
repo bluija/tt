@@ -82,7 +82,7 @@ startButton.onclick = () => {
     isIntro = true;
 
     intro.setOptions({
-        exitOnEsc: false, exitOnOverlayClick: false, showBullets: false, showProgress: true,
+        exitOnEsc: false, exitOnOverlayClick: false, showBullets: false, keyboardNavigation: false,
 
         steps: [{
             title: 'Welcome',
@@ -274,7 +274,7 @@ afterForm.onsubmit = async event => {
         let results = introJs()
 
         results.setOptions({
-            exitOnEsc: false, exitOnOverlayClick: false,
+            exitOnEsc: false, exitOnOverlayClick: false, showBullets: false, keyboardNavigation: false,
             steps: [{
                 title: title, intro: descr
             }]
