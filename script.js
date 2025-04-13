@@ -326,7 +326,7 @@ for (const [key, value] of params) {
 }
 
 
-redirectURL = "https://www.example.com"
+redirectURL = "https://app.prolific.com/submissions/complete?cc=CV4V0E10"
 
 commentSubmit.onclick = async () => {
     allData.set("comment", commentField.value);
