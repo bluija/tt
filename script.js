@@ -1,13 +1,15 @@
+import {firebaseUserId, writeRealtimeDatabase, writeURLParameters} from "./firebasepsych.js";
+
 // consent
 const consent = document.querySelector('.consent');
 const consentCheckbox = document.querySelector('.consentCheckbox');
 const startButton = document.querySelector('.startButton');
 
 // experiment
-const minDots = 100
-const maxDots = 200
-const dotSize = 7;
-const numTrial = 3;
+const minDots = 100;
+const maxDots = 200;
+const dotSize = 10;
+const numTrial = 5;
 
 // https://davidmathlogic.com/colorblind/#%23D81B60-%231E88E5-%23FFC107-%23004D40
 const colors = new Map()
@@ -82,7 +84,7 @@ startButton.onclick = () => {
     isIntro = true;
 
     intro.setOptions({
-        exitOnEsc: false, exitOnOverlayClick: false, showBullets: false, keyboardNavigation: false,
+        exitOnEsc: false, exitOnOverlayClick: false, // showBullets: false, keyboardNavigation: false,
 
         steps: [{
             title: 'Welcome',
@@ -274,8 +276,7 @@ afterForm.onsubmit = async event => {
         let results = introJs()
 
         results.setOptions({
-            exitOnEsc: false, exitOnOverlayClick: false, showBullets: false, keyboardNavigation: false,
-            steps: [{
+            exitOnEsc: false, exitOnOverlayClick: false, showBullets: false, keyboardNavigation: false, steps: [{
                 title: title, intro: descr
             }]
         })
@@ -321,23 +322,34 @@ const resetTrial = () => {
 
 
 const params = new URLSearchParams(window.location.search);
-for (const [key, value] of params) {
-    console.log(key, value);
+for (const [key, value] of params.entries()) {
+    allData.set(key, value);
 }
 
+let studyId = params.get("studyId");
+if (studyId === null) {
+    studyId = "test"
+}
 
-redirectURL = "https://app.prolific.com/submissions/complete?cc=CV4V0E10"
+const pathnow = studyId + '/participantData/' + firebaseUserId + '/participantInfo';
+await writeURLParameters(pathnow);
+
+const redirectURL = "https://app.prolific.com/submissions/complete?cc=CV4V0E10"
 
 commentSubmit.onclick = async () => {
     allData.set("comment", commentField.value);
+
+    console.log(allData);
+    await writeRealtimeDatabase(pathnow, Object.fromEntries(allData));
+    console.log("Wrote to database");
 
     commentDisplay.classList.add("hidden");
     redirectDisplay.classList.remove("hidden");
 
     await sleep(3000);
-    window.location.replace(redirectURL)
+    // window.location.replace(redirectURL)
 }
 
 redirectButton.onclick = () => {
-    window.location.replace(redirectURL)
+    // window.location.replace(redirectURL)
 }
