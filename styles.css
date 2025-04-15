@@ -1,12 +1,12 @@
 .rectangle {
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
     text-align: center;
 }
 
 .paragraph {
+    max-width: 80%;
     text-align: left;
 }
 
@@ -16,10 +16,14 @@
     justify-content: space-evenly;
 }
 
+.trial, .score {
+    font-size: large;
+}
+
 .canvasDisplay {
     border: 1px solid black;
-    width: 300px;
-    height: 300px;
+    width: 400px;
+    height: 400px;
     overflow: hidden;
 }
 

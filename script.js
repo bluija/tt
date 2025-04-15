@@ -7,9 +7,9 @@ const startButton = document.querySelector('.startButton');
 
 // experiment
 const minDots = 100;
-const maxDots = 200;
-const dotSize = 10;
-const numTrial = 5;
+const maxDots = 150;
+const dotSize = 15;
+const numTrial = 1;
 
 // https://davidmathlogic.com/colorblind/#%23D81B60-%231E88E5-%23FFC107-%23004D40
 const colors = new Map()
@@ -96,7 +96,7 @@ startButton.onclick = () => {
         }, {
             title: 'Stimulus',
             element: canvasDisplay,
-            intro: '<p>The animation will run 3 seconds and there are 4 dot colors.</p>'
+            intro: '<p>There are 4 dot colors and the animation stops after 3 seconds.</p>'
         }, {
             title: 'AI Assistant',
             intro: '<p>The AI will watch the animation with you</p>' + '<p>However, the AI is trained on static images rather than the animation you are watching now.</p>' + '<p>Therefore, the AI can advise you but it is not always right.</p>'
@@ -189,9 +189,12 @@ const setData = () => {
     aiConf = Math.round(smpData.get("aiConfidence") * 10) * 10;
 }
 
-const condition = 1
-const path = `data${condition}.json`
+const allData = new Map();
 
+const condition = 2
+allData.set("condition", condition)
+
+const path = `data${condition}.json`
 let aiData
 
 async function getData() {
@@ -208,8 +211,6 @@ async function getData() {
 }
 
 getData().then(() => setData())
-
-const allData = new Map();
 
 trial.textContent = `Trial: 1/${numTrial} (${Math.round(1 / numTrial * 100)}%)`;
 score.textContent = `Score: 0/0 (0%)`;
@@ -271,7 +272,7 @@ afterForm.onsubmit = async event => {
         }
 
         score.textContent = `Score: ${curScore}/${curTrial} (${Math.round(curScore / curTrial * 100)}%)`;
-        allData.set(curTrial, smpData)
+        allData.set(curTrial, Object.fromEntries(smpData))
 
         let results = introJs()
 
@@ -320,26 +321,16 @@ const resetTrial = () => {
     setData()
 }
 
-
-const params = new URLSearchParams(window.location.search);
-for (const [key, value] of params.entries()) {
-    allData.set(key, value);
-}
-
-let studyId = params.get("studyId");
-if (studyId === null) {
-    studyId = "test"
-}
-
-const pathnow = studyId + '/participantData/' + firebaseUserId + '/participantInfo';
-await writeURLParameters(pathnow);
+const pathnow = "auc" + '/participantData/' + firebaseUserId + '/participantInfo';
+await writeURLParameters(pathnow)
+console.log(firebaseUserId);
 
 const redirectURL = "https://app.prolific.com/submissions/complete?cc=CV4V0E10"
 
 commentSubmit.onclick = async () => {
     allData.set("comment", commentField.value);
 
-    console.log(allData);
+    console.log(allData)
     await writeRealtimeDatabase(pathnow, Object.fromEntries(allData));
     console.log("Wrote to database");
 
@@ -347,9 +338,9 @@ commentSubmit.onclick = async () => {
     redirectDisplay.classList.remove("hidden");
 
     await sleep(3000);
-    // window.location.replace(redirectURL)
+    window.location.replace(redirectURL)
 }
 
 redirectButton.onclick = () => {
-    // window.location.replace(redirectURL)
+    window.location.replace(redirectURL)
 }

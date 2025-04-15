@@ -11,84 +11,63 @@
 <div class="consent rectangle">
     <h1>Consent</h1>
     <div class="paragraph">
-        <h2>University of California, Irvine</h2>
-        <h3>Study Information Sheet</h3>
-
-        <h4>AI-Assisted Decision-Making</h4>
-
-        <!--            <p><strong>Lead Researcher:</strong><br>-->
-        <!--                Mark Steyvers<br>-->
-        <!--                Department of Cognitive Sciences<br>-->
-        <!--                <a href="mailto:mark.steyvers@uci.edu">mark.steyvers@uci.edu</a></p>-->
-
-        <p><strong>Researcher:</strong><br>
-            ZhaoBin Li<br>
-            Department of Cognitive Sciences<br>
-            <a href="mailto:zhaobin.li@uci.edu">zhaobin.li@uci.edu</a></p>
-
-        <p>Please read the information below and ask questions about anything that you do not understand. A
-            researcher listed above will be available to answer your questions.</p>
-
-        <p>You are being asked to participate in a research study. Participation in this study is voluntary. You may
-            choose to skip a question or a study procedure. You may refuse to participate or discontinue your
-            involvement at any time without penalty or loss of benefits. You are free to withdraw from this study at
-            any time. If you decide to withdraw from this study you should notify the research team immediately.</p>
-
-        <p>We would like you to complete a survey to learn more about the way humans use artificial intelligence
-            (AI) to make decisions. The survey will last about 30 minutes.</p>
-
-        <p>There are no direct benefits from participation in the study. However, this study may help us to design
-            better AI agents.</p>
-
-        <p>This research is for residents of the United States over the age of 18; if you are not a resident of the
-            United States and/or under the age of 18, please do not complete this survey.</p>
-
-        <p>Use only Google Chrome browser to complete this study. You will receive $5 for your participation in
-            this study.</p>
-
-        <p>All research data collected will be stored securely and confidentially on password-protected online and
-            local storage.</p>
-
-        <p>Researchers will use your information to conduct this study. Once the study is done using your
-            information, we may share them with other researchers so they can use them for other studies in the
-            future. We will not share your name or any other private identifiable information that would let the
-            researchers know who you are. We will not ask you for additional permission to share this de-identified
-            information.</p>
-
-        <p>If you have any comments, concerns, or questions regarding this study please contact the researchers
-            listed at the top of this form.</p>
-
-        <p>If you have questions or concerns about your rights as a research participant, you can contact the UCI
-            Institutional Review Board by phone, (949) 824-8170, by e-mail at <a href="mailto:IRB@research.uci.edu">IRB@research.uci.edu</a>
-            or by mail at University of California, Irvine, Office of Research, Irvine, CA 92697-7600.</p>
-
-        <p>An Institutional Review Board (IRB) is a committee made up of scientists and non-scientists. The IRB’s
-            role is to protect the rights and welfare of human subjects involved in research. The IRB also assures
-            that the research complies with applicable regulations, laws, and institutional policies.</p>
-
-        <p><strong>If you want to participate in this study, click the Agree button to start the experiment.</strong>
-        </p>
+        <h2>AI-Assisted Decision-Making</h2>
+        <section><h3>Researcher Information</h3>
+            <p><strong>Researcher:</strong> ZhaoBin Li<br> <strong>Department:</strong> Cognitive Sciences<br> <strong>Email:</strong>
+                <a href="mailto:zhaobin.li@uci.edu">zhaobin.li@uci.edu</a></p></section>
+        <section><h3>Study Overview</h3>
+            <p>Please read the information below and ask questions about anything that you do not understand. A
+                researcher listed above will be available to answer your questions.</p>
+            <p>You are being asked to participate in a research study. Participation in this study is voluntary. Please
+                use the Chrome browser to run the experiment.</p>
+            <p> We would like you to complete a survey to learn more about the way humans use artificial intelligence
+                (AI) to make decisions. The survey will last about 30 minutes. </p>
+            <p> There are no direct benefits from participation in the study. However, this study may help us to design
+                better AI agents. </p>
+            <p> This research is for residents of the United States over the age of 18; if you are not a resident of the
+                United States and/or under the age of 18, please do not complete this survey. </p>
+            <p> You will receive $5 for your participation in this study. To get compensated, you have to be redirected
+                back to Prolific. </p></section>
+        <section><h3>Data Security & Future Research Use</h3>
+            <p> All research data collected will be stored securely and confidentially on password-protected online and
+                local storage. </p>
+            <p><strong>Future Research Use:</strong> Researchers will use your information to conduct this study. Once
+                the study is done using your information, we may share them with other researchers so they can use them
+                for other studies in the future. We will not share your name or any other private identifiable
+                information that would let the researchers know who you are. We will not ask you for additional
+                permission to share this de-identified information. </p></section>
+        <section><h3>Questions & Contact Information</h3>
+            <p> If you have any comments, concerns, or questions regarding this study, please contact the researchers
+                listed at the top of this form. </p>
+            <p> If you have questions or concerns about your rights as a research participant, you can contact the UCI
+                Institutional Review Board by: </p>
+            <ul>
+                <li>Phone: <a href="tel:9498248170">(949) 824-8170</a></li>
+                <li>Email: <a href="mailto:IRB@research.uci.edu">IRB@research.uci.edu</a></li>
+                <li>Mail: University of California, Irvine, Office of Research, Irvine, CA 92697-7600</li>
+            </ul>
+        </section>
+        <section><h3>What is an IRB?</h3>
+            <p> An Institutional Review Board (IRB) is a committee made up of scientists and non-scientists. The IRB’s
+                role is to protect the rights and welfare of human subjects involved in research. The IRB also assures
+                that the research complies with applicable regulations, laws, and institutional policies. </p></section>
+        <section><p> If you want to participate in this study, click the Agree button to start the survey. </p>
+        </section>
     </div>
-
-    <label>
-        <input type="checkbox" class="consentCheckbox"/>
-        Agree
-    </label>
-    <br>
+    <label> <input type="checkbox" class="consentCheckbox"/> Agree </label> <br>
     <button class="startButton" disabled>Start</button>
 </div>
-
 
 <!--Experiment-->
 <div class="experiment hidden">
     <nav class="progressDisplay">
         <span class="trial"></span>
-        <h3 class="question">Which color has the most dots?</h3>
+        <h1 class="question">Which color has the most dots?</h1>
         <span class="score"></span>
     </nav>
     <div class="rectangle">
         <div class="canvasDisplay">
-            <canvas id="canvas" width="300" height="900"></canvas>
+            <canvas id="canvas" width="400px" height="1200px"></canvas>
         </div>
         <div class="questionDisplay hidden">
             <form class="beforeForm">
