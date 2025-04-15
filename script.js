@@ -191,7 +191,7 @@ const setData = () => {
 
 const allData = new Map();
 
-const condition = 2
+const condition = 1
 allData.set("condition", condition)
 
 const path = `data${condition}.json`
