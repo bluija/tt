@@ -9,7 +9,7 @@ const startButton = document.querySelector('.startButton');
 const minDots = 100;
 const maxDots = 150;
 const dotSize = 15;
-const numTrial = 30;
+const numTrial = 1;
 
 // https://davidmathlogic.com/colorblind/#%23D81B60-%231E88E5-%23FFC107-%23004D40
 const colors = new Map()
@@ -326,6 +326,15 @@ const resetTrial = () => {
 
     setData()
 }
+
+
+const urlParams = new URLSearchParams(window.location.search);
+for (const [key, value] of urlParams.entries()) {
+    allData.set(key, value);
+}
+
+const browser = window.navigator.userAgent
+allData.set("browser", browser)
 
 const pathnow = "auc" + '/participantData/' + firebaseUserId + '/participantInfo';
 await writeURLParameters(pathnow)
