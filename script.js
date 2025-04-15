@@ -325,7 +325,7 @@ const pathnow = "auc" + '/participantData/' + firebaseUserId + '/participantInfo
 await writeURLParameters(pathnow)
 console.log(firebaseUserId);
 
-const redirectURL = "https://app.prolific.com/submissions/complete?cc=CV4V0E10"
+const redirectURL = "https://app.prolific.com/submissions/complete?cc=CMRWMTQP"
 
 commentSubmit.onclick = async () => {
     allData.set("comment", commentField.value);
