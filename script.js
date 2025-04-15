@@ -7,7 +7,7 @@ const startButton = document.querySelector('.startButton');
 
 // experiment
 const minDots = 100;
-const maxDots = 125;
+const maxDots = 150;
 const dotSize = 15;
 const numTrial = 30;
 
