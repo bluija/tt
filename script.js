@@ -96,7 +96,7 @@ startButton.onclick = () => {
         }, {
             title: 'Stimulus',
             element: canvasDisplay,
-            intro: '<p>There are 4 dot colors and the animation stops after 3 seconds.</p>'
+            intro: '<p>There are 4 dot colors. </p>' + '<p>The animation stops after 3 seconds.</p>'
         }, {
             title: 'AI Assistant',
             intro: '<p>The AI will watch the animation with you</p>' + '<p>However, the AI is trained on static images rather than the animation you are watching now.</p>' + '<p>Therefore, the AI can advise you but it is not always right.</p>'
@@ -264,9 +264,13 @@ afterForm.onsubmit = async event => {
 
         if (afterColor.toLowerCase() === maxColor.toLowerCase()) {
             curScore++
+            smpData.set("correct", true)
+
             title = "&#x2714; Correct!"
             descr = "Your score increased by 1!"
         } else {
+            smpData.set("correct", false)
+
             title = "&#x2718; Wrong!"
             descr = "The correct answer is " + maxColor
         }
@@ -290,6 +294,8 @@ afterForm.onsubmit = async event => {
                 resetTrial()
 
             } else {
+                allData.set("score", curScore);
+
                 experiment.classList.add("hidden");
                 complete.classList.remove("hidden");
             }
