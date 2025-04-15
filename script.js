@@ -9,7 +9,7 @@ const startButton = document.querySelector('.startButton');
 const minDots = 100;
 const maxDots = 150;
 const dotSize = 15;
-const numTrial = 1;
+const numTrial = 10;
 
 // https://davidmathlogic.com/colorblind/#%23D81B60-%231E88E5-%23FFC107-%23004D40
 const colors = new Map()
@@ -84,7 +84,7 @@ startButton.onclick = () => {
     isIntro = true;
 
     intro.setOptions({
-        exitOnEsc: false, exitOnOverlayClick: false, // showBullets: false, keyboardNavigation: false,
+        exitOnEsc: false, exitOnOverlayClick: false, showBullets: false, keyboardNavigation: false,
 
         steps: [{
             title: 'Welcome',
